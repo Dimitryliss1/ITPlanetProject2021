@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        title = "KotlinApp"
+        title = "Habesta"
         listView = findViewById<ListView>(R.id.userlist)
         listNews()
 
@@ -32,17 +32,36 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent.putExtra("link", link))
         })
 
-        val profileFragment = profile_fragment()
+        //BottomNavigationView bottomNav = findViewById<>(R.id.bottom_navigation);
+        //bottomNav.setOnNavigationItemSelectedListener(navListener)
 
-
+        //BottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
     }
 
-    private fun makeCurrentFragment(fragment: Fragment) =
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.nav_favorites, fragment)
-            commit()
+    /*private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
+        when (menuItem.itemId) {
+            R.id.nav_home -> {
+                val fragment = MainActivity()
+                supportFragmentManager.beginTransaction().replace(R.id.container, fragment, fragment.javaClass.getSimpleName())
+                        .commit()
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.nav_favorites -> {
+                val fragment = profile_fragment()//временное значение
+                supportFragmentManager.beginTransaction().replace(R.id.container, fragment, fragment.javaClass.getSimpleName())
+                        .commit()
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.nav_profile -> {
+                val fragment = profile_fragment()
+                supportFragmentManager.beginTransaction().replace(R.id.container, fragment, fragment.javaClass.getSimpleName())
+                        .commit()
+                return@OnNavigationItemSelectedListener true
+            }
         }
+        false
+    }*/
 
     private fun listNews(){
         Thread(Runnable {
