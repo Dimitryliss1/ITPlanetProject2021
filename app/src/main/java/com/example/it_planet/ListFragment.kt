@@ -8,6 +8,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.fragment.app.Fragment
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 
 
 class ListFragment : Fragment() {
@@ -20,8 +22,8 @@ class ListFragment : Fragment() {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.list_fragment, container, false)
         listView = view.findViewById(R.id.userlist)
-        val parserVKIT = ParserVKIT()
-        var strings: MutableList<String> = parserVKIT.getHtmlFromWeb()
+    /*   val parserVKIT = ParserVKIT()
+        var strings: MutableList<String> = parserVKIT.getHtmlFromWeb("https://vkist.guap.ru/")
 
 
       val arrayAdapter = ArrayAdapter(inflater.context, android.R.layout.simple_list_item_1, strings)
@@ -34,27 +36,8 @@ class ListFragment : Fragment() {
                //  val intent = Intent(getActivity(), ArticleActivity::class.java)
                //  startActivity(intent.putExtra("link", link))
            })
-
+*/
         return view
-     //   return inflater.inflate(R.layout.list_fragment, container, false)
     }
 
-    /* override fun onCreate(savedInstanceState: Bundle?) {
-         super.onCreate(savedInstanceState)
-     }
-     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-         super.onViewCreated(view, savedInstanceState)
-         listView = view.findViewById(R.id.userlist)
-
-     }
-     private fun listNews(){
-         Thread(Runnable {
-
-             runOnUiThread {
-                 listView.adapter = arrayAdapter
-             }
-         }).start()
-
-
-     }  */
 }

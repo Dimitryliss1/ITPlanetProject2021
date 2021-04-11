@@ -19,32 +19,9 @@ import java.io.IOException
 
 
 class MainActivity : AppCompatActivity() {
-    lateinit var listView: ListView
     var page = 1
     var urlVKIT : String = "https://vkist.guap.ru/"
-/*
-    private val appNavi = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.nav_home -> {
-                val intent = Intent(this@MainActivity, MainActivity::class.java)
-                startActivity(intent)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.nav_favorites -> {
-                val intent = Intent(this@MainActivity, favourite_fragment::class.java)
-                startActivity(intent)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.nav_settings -> {
-                val intent = Intent(this@MainActivity, settings_fragment::class.java)
-                startActivity(intent)
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-        false
 
-    }
- */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +30,7 @@ class MainActivity : AppCompatActivity() {
        // val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         //bottomNavigation.setSelectedItemId(R.id.home)
        // bottomNavigation.setOnNavigationItemSelectedListener(appNavi)
-        val homeFragment = HomeFragment()
+        val homeFragment = ListFragment()
         val favouriteFragment = FavouriteFragment()
         val settingsFragment = SettingsFragment()
 
@@ -67,17 +44,11 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+        val parserVKIT = ParserVKIT()
+        var strings: MutableList<String> = parserVKIT.getHtmlFromWeb("https://vkist.guap.ru/")
 
         title = "Habesta"
-        listView = findViewById<ListView>(R.id.userlist)
-        listNews()
 
-        listView.setOnItemClickListener(OnItemClickListener { parent, view, position, id ->
-            val link: String = parent.getItemAtPosition(position).toString().substringAfter(' ')
-                .substringBefore(' ')
-            val intent = Intent(this@MainActivity, ArticleActivity::class.java)
-            startActivity(intent.putExtra("link", link))
-        })
 
     }
 
@@ -94,9 +65,7 @@ class MainActivity : AppCompatActivity() {
             val parserVKIT = ParserVKIT()
             var strings: MutableList<String> = parserVKIT.getHtmlFromWeb(urlVKIT)
             arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, strings)
-            runOnUiThread {
-                listView.adapter = arrayAdapter
-            }
+
         }).start()
     }
 
@@ -114,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         }
         var strings: MutableList<String> = parserVKIT.getHtmlFromWeb(urlBuilder.toString())
         arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, strings)
-        listView.adapter = arrayAdapter
+      //  listView.adapter = arrayAdapter
     }
 
     fun clickNextPage(v: View){
@@ -128,7 +97,7 @@ class MainActivity : AppCompatActivity() {
             var strings: MutableList<String> = parserVKIT.getHtmlFromWeb(urlBuilder.toString())
             arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, strings)
            // listView.adapter = arrayAdapter
-            listView.setAdapter(arrayAdapter)
+        //    listView.setAdapter(arrayAdapter)
         } catch (e: IOException){
             page--
             urlBuilder.clear()
@@ -136,7 +105,7 @@ class MainActivity : AppCompatActivity() {
             var strings: MutableList<String> = parserVKIT.getHtmlFromWeb(urlBuilder.toString())
             arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, strings)
             //listView.adapter = arrayAdapter
-            listView.setAdapter(arrayAdapter)
+         //   listView.setAdapter(arrayAdapter)
         }
 
     }
