@@ -26,18 +26,16 @@ class ArticleActivity : Activity() {
         val link: String = getIntent().getStringExtra("link").toString()
         webView = findViewById(R.id.webView)
         webView.webViewClient = WebViewClient()
+        webView.getSettings().setJavaScriptEnabled(true)
         parsers(link)
     }
 
     private fun parsers(url :String){
         Thread(Runnable {
             val stringBuilder = StringBuilder()
-                if (url.substringAfter('.').substringBefore('.') == "guap") {
-                    val parserVKIT = ParserVKIT()
-                    stringBuilder.append(parserVKIT.parse(url))
-                }
+            val parserVKIT = ParserVKIT()
+            stringBuilder.append(parserVKIT.parse(url))
             runOnUiThread {
-                webView.getSettings().setJavaScriptEnabled(true)
                 webView.loadData(stringBuilder.toString(), "text/html", null)
             }
         }).start()
