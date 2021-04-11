@@ -47,7 +47,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val homeFragment = ListFragment()
+       // val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        //bottomNavigation.setSelectedItemId(R.id.home)
+       // bottomNavigation.setOnNavigationItemSelectedListener(appNavi)
+        val homeFragment = HomeFragment()
         val favouriteFragment = FavouriteFragment()
         val settingsFragment = SettingsFragment()
 
@@ -63,6 +66,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         title = "Habesta"
+        listView = findViewById<ListView>(R.id.userlist)
+        listNews()
+
+        listView.setOnItemClickListener(OnItemClickListener { parent, view, position, id ->
+            val link: String = parent.getItemAtPosition(position).toString().substringAfter(' ')
+                .substringBefore(' ')
+            val intent = Intent(this@MainActivity, ArticleActivity::class.java)
+            startActivity(intent.putExtra("link", link))
+        })
+
     }
 
     private fun makeCurrentFragment (fragment: Fragment)=
@@ -70,4 +83,17 @@ class MainActivity : AppCompatActivity() {
             replace (R.id.fragment_container, fragment)
             commit()
         }
+
+
+    private fun listNews(){
+        Thread(Runnable {
+            val arrayAdapter: ArrayAdapter<String>
+            val parserVKIT = ParserVKIT()
+            var strings: MutableList<String> = parserVKIT.getHtmlFromWeb("https://vkist.guap.ru")
+            arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, strings)
+            runOnUiThread {
+                listView.adapter = arrayAdapter
+            }
+        }).start()
+    }
 }
