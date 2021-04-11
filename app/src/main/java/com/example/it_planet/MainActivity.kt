@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         Thread(Runnable {
             val arrayAdapter: ArrayAdapter<String>
             val parserVKIT = ParserVKIT()
-            var strings: MutableList<String> = parserVKIT.getHtmlFromWeb()
+            var strings: MutableList<String> = parserVKIT.getHtmlFromWeb("https://vkist.guap.ru")
             arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, strings)
             runOnUiThread {
                 listView.adapter = arrayAdapter
