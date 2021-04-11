@@ -3,8 +3,11 @@ package com.example.it_planet
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Button
+import android.widget.TextView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -19,7 +22,6 @@ class ArticleActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         setContentView(R.layout.activity_article)
 
@@ -39,5 +41,10 @@ class ArticleActivity : Activity() {
                 webView.loadData(stringBuilder.toString(), "text/html", null)
             }
         }).start()
+    }
+
+    fun clickBack(v: View){
+        val intent = Intent(this@ArticleActivity, MainActivity::class.java)
+        startActivity(intent)
     }
 }
