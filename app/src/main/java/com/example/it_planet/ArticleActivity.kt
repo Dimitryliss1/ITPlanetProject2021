@@ -27,6 +27,7 @@ class ArticleActivity : AppCompatActivity() {
 
         webView = findViewById(R.id.webView)
         webView.webViewClient = WebViewClient()
+        webView.getSettings().setJavaScriptEnabled(true)
         parsers(link)
         val actionbar = supportActionBar
         actionbar!!.title = "View Article"
@@ -43,12 +44,9 @@ class ArticleActivity : AppCompatActivity() {
     private fun parsers(url :String){
         Thread(Runnable {
             val stringBuilder = StringBuilder()
-                if (url.substringAfter('.').substringBefore('.') == "guap") {
-                    val parserVKIT = ParserVKIT()
-                    stringBuilder.append(parserVKIT.parse(url))
-                }
+            val parserVKIT = ParserVKIT()
+            stringBuilder.append(parserVKIT.parse(url))
             runOnUiThread {
-                webView.getSettings().setJavaScriptEnabled(true)
                 webView.loadData(stringBuilder.toString(), "text/html", null)
             }
         }).start()
