@@ -13,7 +13,7 @@ class ParserVKIT {
         val doc: Document = Jsoup.connect("https://vkist.guap.ru/").get()
         val links: Elements = doc.select("article")
         for (link in links) {
-            stringBuilder.append("\n").append("Link: ").append(link.select("a[href]").attr("href")).append(" \n").append("Text : ").append(link.select("h2").text())
+            stringBuilder.append(" - ").append("Text : ").append(link.select("h2").text())
             strings.add(index, stringBuilder.toString())
             index++
             stringBuilder.clear()
