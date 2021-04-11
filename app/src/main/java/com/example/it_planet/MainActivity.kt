@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.jsoup.Jsoup
@@ -18,9 +19,52 @@ import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
     lateinit var listView: ListView
+/*
+    private val appNavi = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.nav_home -> {
+                val intent = Intent(this@MainActivity, MainActivity::class.java)
+                startActivity(intent)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.nav_favorites -> {
+                val intent = Intent(this@MainActivity, favourite_fragment::class.java)
+                startActivity(intent)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.nav_settings -> {
+                val intent = Intent(this@MainActivity, settings_fragment::class.java)
+                startActivity(intent)
+                return@OnNavigationItemSelectedListener true
+            }
+        }
+        false
+
+    }
+ */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+       // val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        //bottomNavigation.setSelectedItemId(R.id.home)
+       // bottomNavigation.setOnNavigationItemSelectedListener(appNavi)
+        val homeFragment = HomeFragment()
+        val favouriteFragment = FavouriteFragment()
+        val settingsFragment = SettingsFragment()
+
+        makeCurrentFragment (homeFragment)
+        val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNavigation.setOnNavigationItemSelectedListener {
+            when (it.itemId){
+                R.id.nav_home->makeCurrentFragment(homeFragment)
+                R.id.nav_favorites->makeCurrentFragment(favouriteFragment)
+                R.id.nav_settings->makeCurrentFragment(settingsFragment)
+            }
+            true
+        }
+
         title = "Habesta"
         listView = findViewById<ListView>(R.id.userlist)
         listNews()
@@ -32,36 +76,14 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent.putExtra("link", link))
         })
 
-        //BottomNavigationView bottomNav = findViewById<>(R.id.bottom_navigation);
-        //bottomNav.setOnNavigationItemSelectedListener(navListener)
-
-        //BottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
     }
 
-    /*private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
-        when (menuItem.itemId) {
-            R.id.nav_home -> {
-                val fragment = MainActivity()
-                supportFragmentManager.beginTransaction().replace(R.id.container, fragment, fragment.javaClass.getSimpleName())
-                        .commit()
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.nav_favorites -> {
-                val fragment = profile_fragment()//временное значение
-                supportFragmentManager.beginTransaction().replace(R.id.container, fragment, fragment.javaClass.getSimpleName())
-                        .commit()
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.nav_profile -> {
-                val fragment = profile_fragment()
-                supportFragmentManager.beginTransaction().replace(R.id.container, fragment, fragment.javaClass.getSimpleName())
-                        .commit()
-                return@OnNavigationItemSelectedListener true
-            }
+    private fun makeCurrentFragment (fragment: Fragment)=
+        supportFragmentManager.beginTransaction().apply {
+            replace (R.id.fragment_container, fragment)
+            commit()
         }
-        false
-    }*/
+
 
     private fun listNews(){
         Thread(Runnable {

@@ -1,9 +1,11 @@
 package com.example.it_planet
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
@@ -20,6 +22,7 @@ class ArticleActivity : Activity() {
 
 
         setContentView(R.layout.activity_article)
+
         val link: String = getIntent().getStringExtra("link").toString()
         webView = findViewById(R.id.webView)
         webView.webViewClient = WebViewClient()
