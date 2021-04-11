@@ -12,25 +12,13 @@ class ParserVKIT {
         val urlBuilder = StringBuilder()
         urlBuilder.append(url)
         var strings: MutableList<String> = mutableListOf()
-        var page = 1
-        while (true) {
-            if (page > 1) {
-                urlBuilder.clear()
-                urlBuilder.append(url).append("page/").append(page)
-            }
-            try {
-                val doc: Document = Jsoup.connect(urlBuilder.toString()).get()
-                val links: Elements = doc.select("article")
-                for (link in links) {
-                    stringBuilder.append("\n").append("Link: ").append(link.select("a[href]").attr("href")).append(" \n").append("Text : ").append(link.select("h2").text())
-                    strings.add(index, stringBuilder.toString())
-                    index++
-                    stringBuilder.clear()
-                }
-                page++;
-            } catch (e: IOException) {
-                break;
-            }
+        val doc: Document = Jsoup.connect(urlBuilder.toString()).get()
+        val links: Elements = doc.select("article")
+        for (link in links) {
+            stringBuilder.append("\n").append("Link: ").append(link.select("a[href]").attr("href")).append(" \n").append("Text : ").append(link.select("h2").text())
+            strings.add(index, stringBuilder.toString())
+            index++
+            stringBuilder.clear()
         }
         return strings
     }
