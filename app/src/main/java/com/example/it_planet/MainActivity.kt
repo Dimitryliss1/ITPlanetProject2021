@@ -47,12 +47,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-<<<<<<< HEAD
-=======
        // val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         //bottomNavigation.setSelectedItemId(R.id.home)
        // bottomNavigation.setOnNavigationItemSelectedListener(appNavi)
->>>>>>> f4b029ba8dfe665a289015202b974393754fef24
         val homeFragment = HomeFragment()
         val favouriteFragment = FavouriteFragment()
         val settingsFragment = SettingsFragment()
