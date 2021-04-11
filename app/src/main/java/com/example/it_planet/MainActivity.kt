@@ -19,10 +19,40 @@ import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
     lateinit var listView: ListView
+/*
+    private val appNavi = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.nav_home -> {
+                val intent = Intent(this@MainActivity, MainActivity::class.java)
+                startActivity(intent)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.nav_favorites -> {
+                val intent = Intent(this@MainActivity, favourite_fragment::class.java)
+                startActivity(intent)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.nav_settings -> {
+                val intent = Intent(this@MainActivity, settings_fragment::class.java)
+                startActivity(intent)
+                return@OnNavigationItemSelectedListener true
+            }
+        }
+        false
+
+    }
+ */
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+<<<<<<< HEAD
+=======
+       // val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        //bottomNavigation.setSelectedItemId(R.id.home)
+       // bottomNavigation.setOnNavigationItemSelectedListener(appNavi)
+>>>>>>> f4b029ba8dfe665a289015202b974393754fef24
         val homeFragment = HomeFragment()
         val favouriteFragment = FavouriteFragment()
         val settingsFragment = SettingsFragment()
